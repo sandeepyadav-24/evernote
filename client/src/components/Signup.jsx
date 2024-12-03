@@ -22,7 +22,7 @@ const Signup = () => {
         // If the response status is not ok (e.g., 400, 500)
         const errorData = await result.json();
         console.error("Error response:", errorData);
-        //return;
+        return;
       }
 
       const data = await result.json(); // Parse JSON only if the response is ok
@@ -36,7 +36,7 @@ const Signup = () => {
     <div className="h-screen">
       <Navbar />
       <div className=" flex flex-row ">
-        <div className="w-1/2 px-20 py-20 ">
+        <div className="w-1/2  px-20 py-20 ">
           <div className="mx-10 my-10 flex flex-col">
             <div className=" my-5">
               <h1 className="text-5xl my-3 font-semibold">
@@ -70,7 +70,7 @@ const Signup = () => {
             </button>
           </div>
         </div>
-        <div className="w-1/2 py-60 px-10">
+        <div className=" w-1/2  py-60 px-10">
           <h1 className="text-5xl font-lg font-serif my-2 mx-5">
             Work.School.Life
           </h1>

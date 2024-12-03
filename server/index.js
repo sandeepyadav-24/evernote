@@ -1,27 +1,23 @@
 const express = require("express");
-const PORT = 3000;
-const app = express();
 const cors = require("cors");
 const connectionDb = require("./config/db");
-const User = require("./model/database");
-const mongoose = require("mongoose");
+const { Signup, Login } = require("./controller/Authentication");
 
+const PORT = 3000;
+const app = express();
+
+// MiddleWares
 app.use(express.json());
 app.use(cors());
+
+// DataBase Connection Function
 connectionDb();
 
-app.post("/api/signup", async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const newUser = new User({ email, password });
-    await newUser.save();
-    res.json({ msg: "USer Saved successfully" });
-  } catch (error) {
-    console.error(error);
-    res.json({ msg: "Error" });
-  }
-});
+// ROutes
+app.post("/api/signup", Signup);
+app.post("/api/login", Login);
 
+// PORT Listening
 app.listen(PORT, () => {
   console.log("Listening at port: " + PORT);
 });
