@@ -1,15 +1,41 @@
 import React from "react";
 import { useState } from "react";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const clickHandler = () => {
-    console.log({
-      email: email,
-      password: password,
-    });
+  const navigate = useNavigate();
+  const url = "http://localhost:3000/api/login";
+  const payload = {
+    email: email,
+    password: password,
+  };
+  const clickHandler = async () => {
+    try {
+      const result = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!result.ok) {
+        // If the response is not ok ..400, 500
+        const errorData = await result.json();
+        console.error("Error response:", errorData);
+        return;
+      }
+      const data = await result.json();
+      const token = data.token;
+      //console.log("Success", data.token);
+      localStorage.setItem("Authentication", token);
+      //location.reload();
+      navigate("/");
+
+      console.log("OK");
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className=" h-screen">
@@ -30,7 +56,7 @@ const Login = () => {
                 type="text"
                 value={email}
                 onChange={(e) => {
-                  setEmail(e.tagert.value);
+                  setEmail(e.target.value);
                 }}
               ></input>
               <input

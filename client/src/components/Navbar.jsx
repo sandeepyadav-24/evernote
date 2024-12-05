@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
+  const Navigate = useNavigate();
+  const clickHandler = () => {
+    localStorage.removeItem("Authentication");
+    Navigate("/");
+    location.reload();
+  };
   return (
     <div className="flex flex-row py-5 px-20   justify-between bg-[#F8F6F1] border-b-black        border-[1px]">
       <div className="text-3xl font-bold font-serif ">

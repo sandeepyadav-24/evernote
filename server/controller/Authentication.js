@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../model/database");
+const { User } = require("../model/database");
+const Secret = "MY_GF_NAME_IS";
 // Function FOr HAshing Password
 const hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
@@ -14,9 +15,7 @@ const comparePassword = async (inputPassword, hashedPassword) => {
 
 // Function to Generate Token
 const generateToken = (user) => {
-  return jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  return jwt.sign({ id: user._id, email: user.email }, Secret);
 };
 const Signup = async (req, res) => {
   // Getting Email and Password From Body

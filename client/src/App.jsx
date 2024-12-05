@@ -7,8 +7,8 @@ import Homepage from "./components/HomePage";
 import Landingpage from "./components/LandingPage";
 
 function App() {
-  const isLogin = 0;
-  return <div>{isLogin ? <Homepage /> : <Landingpage />}</div>;
+  const token = localStorage.getItem("Authentication");
+  return <div>{token ? <Homepage /> : <Landingpage />}</div>;
 }
 
 export default App;
